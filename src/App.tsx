@@ -1,3 +1,10 @@
+import { Header } from './components/Header';
+
 export default function App() {
-  return <h1>Task Board</h1>;
+  return (
+    <>
+      <Header />
+      <Header />
+    </>
+  );
 }
