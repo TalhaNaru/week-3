@@ -1,14 +1,21 @@
-import type { Task } from '../type';
+import type { Task } from '../types';
 
 type TaskItemProps = {
   task: Task;
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
-export function TaskItem({ task }: TaskItemProps) {
+export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
   return (
     <li>
-      <span>{task.title}</span>
-      {task.completed ? <span> (completed)</span> : <span> (active)</span>}
+      <span
+        onClick={() => onToggle(task.id)}
+        style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
+      >
+        {task.title}
+      </span>
+      <button onClick={() => onDelete(task.id)}>DELETE</button>
     </li>
   );
 }
