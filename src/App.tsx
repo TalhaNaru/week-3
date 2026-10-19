@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Filter, Task } from './types';
 import { TaskInput } from './components/TaskInput';
 import { FilterBar } from './components/FilterBar';
 import { TaskList } from './components/TaskList';
 
 export default function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const saved = localStorage.getItem('tasks');
+    return saved ? (JSON.parse(saved) as Task[]) : [];
+  });
   const [title, setTitle] = useState('');
   const [filter, setFilter] = useState<Filter>('all');
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   function handleAdd() {
     const trimmed = title.trim();
