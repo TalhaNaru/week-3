@@ -37,11 +37,18 @@ export default function App() {
     if (filter === 'active') return !task.completed;
     if (filter === 'completed') return task.completed;
   });
+  const totalCount = tasks.length;
+  const activeCount = tasks.filter((task) => !task.completed).length;
+  const completedCount = tasks.filter((task) => task.completed).length;
   return (
     <>
       <h1>Task Board</h1>
       <TaskInput title={title} onTitlechange={setTitle} onAdd={handleAdd} />
       <FilterBar filter={filter} onFilterChange={setFilter} />
+      <p>
+        Total: {totalCount} · Active: {activeCount} · Completed:{' '}
+        {completedCount}
+      </p>
       <TaskList
         tasks={visibleTasks}
         onToggle={handleToggle}
